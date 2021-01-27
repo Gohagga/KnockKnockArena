@@ -1,3 +1,4 @@
+import { Log } from "log/Log";
 import { Trigger } from "w3ts/index";
 import { AbilityEventType } from "./AbilityEventType";
 import { IAbilityEventHandler } from "./IAbilityEventHandler";
@@ -20,6 +21,8 @@ export class AbilityEventProvider {
         this.spellEffectTrigger = new Trigger();
         this.spellEffectTrigger.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
         this.spellEffectTrigger.addAction(() => {
+            Log.info(GetSpellAbilityId())
+            Log.info(GetObjectName(GetSpellAbilityId()))
             this.abilityEventHandler.Register(AbilityEventType.Effect, GetSpellAbilityId());
         });
         this.spellEndTrigger = new Trigger();

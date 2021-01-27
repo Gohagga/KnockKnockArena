@@ -19,6 +19,8 @@ export class KnockbackManager {
 
     ApplyKnockback(caster: Unit, u: Unit, force: number, angle: number) {
         
+        // Skip traps
+        if (u.typeId == FourCC('n000')) return;
         const id = u.id;
         
         Log.info(5.1)

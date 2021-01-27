@@ -285,27 +285,21 @@ Launch a projectile that collides with the walls and units, knocking back everyo
 }
 
 STRING 58
-// Abilities: A006 (Trap), Name (Name)
+// Abilities: A007 (Trap), Name (Name)
 {
 Trap
 }
 
 STRING 59
-// Abilities: A006 (Trap), Hotkey (Hotkey - Normal)
+// Abilities: A006 (Explode), Hotkey (Hotkey - Normal)
 {
 Q
 }
 
 STRING 60
-// Abilities: A006 (Trap), Tip (Tooltip - Normal)
+// Abilities: A007 (Trap), Tip (Tooltip - Normal)
 {
 Trap
-}
-
-STRING 61
-// Abilities: A006 (Trap), Ubertip (Tooltip - Normal - Extended)
-{
-Places a trap in front of the caster that will trigger upon enemy walking over it. The trap knocks everyone within its small radius towards facing of the trap.
 }
 
 STRING 62
@@ -314,9 +308,69 @@ STRING 62
 Trap Mine
 }
 
-STRING 63
-// Abilities: A007 (Place Trap Mine), Name (Name)
+STRING 64
+// Abilities: A006 (Explode), Name (Name)
 {
-Place Trap Mine
+Explode
+}
+
+STRING 65
+// Abilities: A006 (Explode), Tip (Tooltip - Normal)
+{
+Explode
+}
+
+STRING 66
+// Abilities: A006 (Explode), Ubertip (Tooltip - Normal - Extended)
+{
+Explode the trap manually.
+}
+
+STRING 67
+// Abilities: A007 (Trap), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 68
+// Units: nban (Trapper), Name (Name)
+{
+Trapper
+}
+
+STRING 69
+// Units: nban (Trapper), Tip (Tooltip - Basic)
+{
+Trapper
+}
+
+STRING 70
+// Units: nban (Trapper), Ubertip (Tooltip - Extended)
+{
+Places invisible land mines around the battlefield. These explode when stepped on by enemy, and knock all nearby units towards direction it's facing.
+}
+
+STRING 71
+// Abilities: A007 (Trap), Ubertip (Tooltip - Normal - Extended)
+{
+Places a trap facing the caster that will trigger upon enemy walking over it. The trap knocks back everyone within its small radius towards facing of the trap.
+}
+
+STRING 72
+// Units: h000 (Phoenix Egg Big), Name (Name)
+{
+Phoenix Egg Big
+}
+
+STRING 73
+// Units: h001 (Phoenix Egg Smol), Name (Name)
+{
+Phoenix Egg Smol
+}
+
+STRING 74
+// Abilities: A008 (Permanent Immolation smol), Name (Name)
+{
+Permanent Immolation smol
 }
 

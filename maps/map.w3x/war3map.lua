@@ -21,9 +21,8 @@ function CreateUnitsForPlayer0()
     local unitID
     local t
     local life
-    u = BlzCreateUnitWithSkin(p, FourCC("nban"), 1566.4, 127.3, 352.160, FourCC("nban"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 1732.5, -373.4, 271.750, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 1212.1, 2154.6, 271.129, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 1725.8, -390.8, 90.769, FourCC("h001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 1215.1, 2174.9, 268.517, FourCC("h001"))
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 2614.6, 1658.7, 180.477, FourCC("h000"))
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 334.4, 114.9, 0.970, FourCC("h000"))
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 426.5, 1413.4, 291.531, FourCC("h000"))
@@ -37,15 +36,6 @@ function CreateBuildingsForPlayer1()
     local t
     local life
     gg_unit_ncop_0014 = BlzCreateUnitWithSkin(p, FourCC("ncop"), 2496.0, 2240.0, 270.000, FourCC("ncop"))
-end
-
-function CreateUnitsForPlayer6()
-    local p = Player(6)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("nban"), 1739.6, 148.7, 352.160, FourCC("nban"))
 end
 
 function CreateBuildingsForPlayer22()
@@ -77,7 +67,6 @@ end
 
 function CreatePlayerUnits()
     CreateUnitsForPlayer0()
-    CreateUnitsForPlayer6()
 end
 
 function CreateAllUnits()
@@ -105,7 +94,7 @@ end
 
 function InitTrig_Untitled_Trigger_002()
     gg_trg_Untitled_Trigger_002 = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Untitled_Trigger_002, EVENT_PLAYER_UNIT_SELL)
+    TriggerRegisterAnyUnitEventBJ(gg_trg_Untitled_Trigger_002, EVENT_PLAYER_UNIT_SUMMON)
     TriggerAddAction(gg_trg_Untitled_Trigger_002, Trig_Untitled_Trigger_002_Actions)
 end
 

@@ -21,6 +21,10 @@ export class AbilityEvent {
     public get abilityLevel(): number {
         return GetUnitAbilityLevel(GetTriggerUnit(), GetSpellAbilityId());
     }
+
+    public get summonedUnit(): Unit {
+        return Unit.fromHandle(GetSummonedUnit());
+    }
 }
 
 export class AbilityFinishEvent extends AbilityEvent {

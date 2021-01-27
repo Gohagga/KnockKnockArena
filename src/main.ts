@@ -11,6 +11,7 @@ import { KnockbackManager } from "missiles/KnockbackManager";
 import { Blast } from "spells/Blast";
 import { Launch } from "spells/Launch";
 import { Snipe } from "spells/Snipe";
+import { Trap } from "spells/Trap";
 import { Item, MapPlayer, Multiboard, Region, Timer, Unit } from "w3ts";
 import { Players } from "w3ts/globals";
 import { addScriptHook, W3TS_HOOK } from "w3ts/hooks";
@@ -77,6 +78,19 @@ function tsMain() {
     new Blast({
       codeId: 'A005',
       name: 'Blast',
+    },
+      abilityEvent,
+      enumService,
+      missileManager,
+      knockbackManager
+    );
+
+    new Trap(
+      'A007',
+      'A006',
+    {
+      codeId: 'Amnx',
+      name: 'Trap'
     },
       abilityEvent,
       enumService,
