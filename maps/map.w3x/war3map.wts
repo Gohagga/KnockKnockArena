@@ -1,11 +1,11 @@
 ﻿STRING 1
 {
-TypeScript Template
+Knock knock Arena
 }
 
 STRING 2
 {
-Any
+Yes?
 }
 
 STRING 3
@@ -15,7 +15,7 @@ Nondescript
 
 STRING 4
 {
-TriggerHappy
+The_Spellweaver
 }
 
 STRING 5
@@ -23,33 +23,300 @@ STRING 5
 Player 1
 }
 
-STRING 6
-{
-Player 2
-}
-
 STRING 7
+// Abilities: A000 (Shoot), Name (Name)
 {
-Player 3
+Shoot
 }
 
 STRING 8
+// Abilities: A000 (Shoot), Hotkey (Hotkey - Normal)
 {
-Force 1
+Q
 }
 
 STRING 9
 {
-Force 2
+Player 2
 }
 
 STRING 10
 {
-Player 4
+Player 3
 }
 
 STRING 11
 {
+Player 4
+}
+
+STRING 12
+{
+Player 5
+}
+
+STRING 13
+{
+Player 6
+}
+
+STRING 14
+{
+Player 7
+}
+
+STRING 15
+{
+Player 8
+}
+
+STRING 16
+{
+Player 9
+}
+
+STRING 17
+{
+Player 10
+}
+
+STRING 18
+{
+Player 11
+}
+
+STRING 19
+{
 Player 12
+}
+
+STRING 21
+// Units: nDUM (DUMMY), Name (Name)
+{
+DUMMY
+}
+
+STRING 22
+// Abilities: A000 (Shoot), Tip (Tooltip - Normal)
+{
+Snipe
+}
+
+STRING 23
+// Abilities: A000 (Shoot), Ubertip (Tooltip - Normal - Extended)
+{
+Launch a projectile that bounces off the walls, knocking back the first target it hits.
+}
+
+STRING 24
+// Abilities: A002 (Launch), Name (Name)
+{
+Launch
+}
+
+STRING 25
+// Abilities: A002 (Launch), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 26
+// Abilities: A002 (Launch), Tip (Tooltip - Normal)
+{
+Launch
+}
+
+STRING 27
+// Abilities: A002 (Launch), Ubertip (Tooltip - Normal - Extended)
+{
+Launch an artillery at the target point. On hit it explodes, knocking back all targets within range.
+}
+
+STRING 28
+// Items: Iflr (Red Flag), Name (Name)
+{
+Red Flag
+}
+
+STRING 29
+// Items: Iflb (Blue Flag), Name (Name)
+{
+Blue Flag
+}
+
+STRING 30
+// Abilities: A003 (Flag), Name (Name)
+{
+Flag
+}
+
+STRING 31
+// Items: I000 (Pathing checker), Name (Name)
+{
+Pathing checker
+}
+
+STRING 32
+{
+Red
+}
+
+STRING 33
+{
+Blue
+}
+
+STRING 34
+// Units: e000 (Hero Selector Red), Name (Name)
+{
+Hero Selector Red
+}
+
+STRING 35
+// Units: e001 (Hero Selector Blue), Name (Name)
+{
+Hero Selector Blue
+}
+
+STRING 36
+{
+Player 23
+}
+
+STRING 37
+{
+Player 24
+}
+
+STRING 38
+// Items: I00r (Rifleman), Name (Name)
+{
+Rifleman
+}
+
+STRING 40
+// Units: hmtm (Artillery), Name (Name)
+{
+Artillery
+}
+
+STRING 42
+// Units: hrif (Sniper), Name (Name)
+{
+Sniper
+}
+
+STRING 43
+// Units: hmtm (Artillery), Tip (Tooltip - Basic)
+{
+Artillery
+}
+
+STRING 44
+// Units: hrif (Sniper), Tip (Tooltip - Basic)
+{
+Sniper
+}
+
+STRING 45
+// Units: hrif (Sniper), Ubertip (Tooltip - Extended)
+{
+Prefers distance. Can shoot a projectile that bounces off walls and gains in power the longer it travels.
+}
+
+STRING 46
+// Units: hmtm (Artillery), Ubertip (Tooltip - Extended)
+{
+Heavy combatant who can shoot over walls and other obstacles. His missile knocks all units within aoe.
+}
+
+STRING 47
+// Items: I00r (Rifleman), Tip (Tooltip - Basic)
+{
+Sniper
+}
+
+STRING 48
+// Items: I00a (Artillery), Name (Name)
+{
+Artillery
+}
+
+STRING 49
+// Items: I00a (Artillery), Tip (Tooltip - Basic)
+{
+Artillery
+}
+
+STRING 50
+// Units: hfoo (Blaster), Name (Name)
+{
+Blaster
+}
+
+STRING 51
+// Units: hfoo (Blaster), Tip (Tooltip - Basic)
+{
+Blaster
+}
+
+STRING 52
+// Abilities: A005 (Blast), Name (Name)
+{
+Blast
+}
+
+STRING 53
+// Abilities: A005 (Blast), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 56
+// Abilities: A005 (Blast), Tip (Tooltip - Normal)
+{
+Blast
+}
+
+STRING 57
+// Abilities: A005 (Blast), Ubertip (Tooltip - Normal - Extended)
+{
+Launch a projectile that collides with the walls and units, knocking back everyone in range.
+}
+
+STRING 58
+// Abilities: A006 (Trap), Name (Name)
+{
+Trap
+}
+
+STRING 59
+// Abilities: A006 (Trap), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 60
+// Abilities: A006 (Trap), Tip (Tooltip - Normal)
+{
+Trap
+}
+
+STRING 61
+// Abilities: A006 (Trap), Ubertip (Tooltip - Normal - Extended)
+{
+Places a trap in front of the caster that will trigger upon enemy walking over it. The trap knocks everyone within its small radius towards facing of the trap.
+}
+
+STRING 62
+// Units: n000 (Trap Mine), Name (Name)
+{
+Trap Mine
+}
+
+STRING 63
+// Abilities: A007 (Place Trap Mine), Name (Name)
+{
+Place Trap Mine
 }
 
