@@ -2,47 +2,60 @@ import { AbilityEvent } from "ability-event/AbilityEvent";
 import { IAbilityEventHandler } from "ability-event/IAbilityEventHandler";
 import { Ability } from "base/Ability";
 import { AbilityData } from "config/AbilityData";
+import { DummyService } from "dummy/DummyService";
 import { IEnumUnitService } from "enum-service/IEnumUnitService";
 import { Log } from "log/Log";
+import { IMissile } from "missile-system/IMissile";
 import { MissileManager } from "missile-system/MissileManager";
 import { KnockbackManager } from "missiles/KnockbackManager";
+import { TrapMissile } from "missiles/TrapMissile";
 // import { TrapMissile } from "missiles/TrapMissile";
-import { Effect, Point, Trigger, Unit } from "w3ts/index";
+import { Effect, MapPlayer, Point, Timer, Trigger, Unit } from "w3ts/index";
 
 export type TrapMine = {
     unit: Unit,
     angle: number,
     caster: Unit,
-    sfx: Effect
+    sfx: Effect,
+    missile: IMissile
+    // tim: Timer,
+    // delay: number,
 }
 
 export class Trap extends Ability {
 
     static readonly speed: number = 800;
     static readonly travelDistance: number = 1600;
-    static readonly knockForce: number = 800;
-    static readonly aoe: number = 70;
+    static readonly knockForce: number = 1000;
+    static readonly aoe: number = 120;
+    static readonly triggerRange: number = 80;
+    static readonly delay: number = 3;
+    static readonly checkInterval = 0.07;
+
+    static readonly trapUnitId = FourCC('n000');
 
     private instances: Record<number, TrapMine> = {};
 
     constructor(
         spellId: string,
         explodeSpellId: string,
+        private slowSpellId: string,
         data: AbilityData,
         abilityEvent: IAbilityEventHandler,
         private enumService: IEnumUnitService,
         private missileManager: MissileManager,
-        private knockbackManager: KnockbackManager
+        private knockbackManager: KnockbackManager,
+        private dummyService: DummyService
     ) {
         super(data);
-        abilityEvent.OnAbilityEffect(FourCC(explodeSpellId), e => e.caster.kill());
+        abilityEvent.OnAbilityEffect(FourCC(explodeSpellId), e => this.instances[e.caster.id].missile.alive = false);
         let t = new Trigger();
         t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON);
         t.addAction(() => this.PlaceTrap());
 
-        t = new Trigger();
-        t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
-        t.addAction(() => this.Execute(new AbilityEvent()));
+        // t = new Trigger();
+        // t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
+        // t.addAction(() => this.Explode(new AbilityEvent().caster));
     }
 
     PlaceTrap() {
@@ -63,60 +76,89 @@ export class Trap extends Ability {
         let summonX = caster.x + 30 * math.cos(angle);
         let summonY = caster.y + 30 * math.sin(angle);
 
-        // trap.x = summonX;
-        // trap.y = summonY;
-        // trap.setPosition(summonX, summonY);
-        // trap.facing = -angle;
         let sfx = new Effect('Abilities\\Spells\\Undead\\UndeadMine\\UndeadMineCircle.mdl', trap.x, trap.y);
+        // let sfx = new Effect('Abilities\\Spells\\Undead\\Curse\\CurseTarget.mdl', trap, "origin");
         sfx.scale = 0.75;
+
         sfx.setYaw(angle+math.pi)
 
-        this.instances[trap.id] = {
+        let missile = new TrapMissile(sfx.id, trap.x, trap.y, Trap.delay);
+        
+        Log.info("delay?", missile.delay);
+        
+        missile.OnUpdate((m) => {
+            if (m.delay >= 0) {
+                m.delay -= MissileManager.fps;
+            } else if (m.delay > -100) {
+                
+                if (caster.owner.isPlayerEnemy(MapPlayer.fromLocal())) {
+                    sfx.setAlpha(0);
+                }
+                m.delay = -100;
+
+            } else {
+                
+                Log.info("got in");
+                const targets = this.enumService.EnumUnitsInRange(trap.point, Trap.triggerRange, target =>
+                    target.isEnemy(owner) &&
+                    target.isAlive());
+                    
+                    if (targets.length > 0) {
+                        // trap.kill();
+                    m.alive = false;
+                }
+            }
+        }).OnDestroy((m) => {
+            this.Explode(trap);
+            trap.kill();
+        });
+        this.missileManager.Fire(missile);
+
+        let instance = {
             unit: trap,
             angle: angle,
             caster,
-            sfx
+            sfx,
+            missile: missile
         };
+        this.instances[trap.id] = instance;
+    }
+
+    Explode(trap: Unit) {
+
+        Log.info("Explode");
+        const owner = trap.owner;
+        let instance = this.instances[trap.id];
+        let { angle, caster, sfx, missile } = instance;
+        
+        Log.info(2);
+        const targets = this.enumService.EnumUnitsInRange(trap.point, Trap.aoe, target =>
+            target.isAlive());
+
+        Log.info(3);
+        let burst = new Effect('Abilities\\Spells\\Undead\\DarkRitual\\DarkRitualTarget.mdl', trap.x, trap.y);
+        burst.setOrientation(angle, math.pi*0.5, 0);
+        burst.setHeight(80);
+        burst.destroy();
+        sfx.destroy();
+
+        Log.info(4);
+        caster.mana += 20;
+
+        Log.info(5);
+        if (targets.length > 0) {
+            for (let t of targets) {
+
+                let tx = t.x;
+                let ty = t.y;
+                this.knockbackManager.RedirectForce(t, angle);
+                this.knockbackManager.ApplyKnockback(caster, t, Trap.knockForce, angle);
+                this.dummyService.GetDummy(FourCC(this.slowSpellId), 1)
+            }
+        }
     }
 
     Execute(e: AbilityEvent) {
 
-        
-        const trap = e.caster;
-        
-        Log.info("AAAAaaaaa", trap.name);
-        const owner = trap.owner;
-
-        Log.info(1)
-
-        let { angle, caster, sfx } = this.instances[trap.id];
-
-        Log.info("saved angle and caster", angle, caster.name);
-
-        const targets = this.enumService.EnumUnitsInRange(trap.point, Trap.aoe, target =>
-            target.isAlive());
-
-        let burst = new Effect('Abilities\\Spells\\Undead\\DarkRitual\\DarkRitualTarget.mdl', trap.x, trap.y);
-        burst.setOrientation(angle, math.pi*0.5, 0);
-        burst.setHeight(60);
-        burst.destroy();
-        sfx.destroy();
-
-        caster.mana += 20;
-
-                    
-        if (targets.length > 0) {
-            
-            for (let t of targets) {
-                
-                Log.info("Hit target", t.name);
-
-                let tx = t.x;
-                let ty = t.y;
-                this.knockbackManager.ApplyKnockback(caster, t, Trap.knockForce, angle);
-            }
-        }
-        
-        Log.info(4)
     }
 }

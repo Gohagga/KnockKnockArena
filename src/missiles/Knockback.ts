@@ -21,7 +21,8 @@ export class Knockback implements IMissile {
     constructor(
         unit: Unit,
         force: number,
-        angle: number
+        angle: number,
+        private weight: number = 1
     ) {
         this.id = unit.id;
         this.alive = true;
@@ -29,12 +30,44 @@ export class Knockback implements IMissile {
         this.y = unit.y;
         this.target = unit;
 
-        this.AddForce(force, angle);
+        this.AddForce(force, angle, weight);
 
         Log.info(this.target.name, this.fx, this.fy);
     }
 
-    AddForce(force: number, angle: number) {
+    get speedPerFrame(): number {
+
+        let angle = math.atan(this.fy, this.fx);
+        return this.fx / math.cos(angle);
+    }
+
+    AddForce(force: number, angle: number, weight: number, speedLimit?: number) {
+        
+        // let dx = math.cos(angle) * force * MissileManager.fps;
+        // let dy = math.sin(angle) * force * MissileManager.fps;
+        // let fx = this.fx + dx;
+        // let fy = this.fy + dy;
+        
+        // if (speedLimit) {
+            
+        //     {
+                
+        //         let currAngle = math.atan(fy, fx);
+        //         let potentialSpeed = this.fx / math.cos(angle);
+
+        //         // let potentialSpeedIncrease = speedLimit - 
+        //         let scaling = potentialSpeed / speedLimit;
+        //         if (potentialSpeed > speedLimit) {
+        //             dx = 
+        //         }
+        //     }
+        // }
+
+        // Case 2 - speed is below limit but adding all of force would go over
+        // - set speed to limit
+        // Case 3 - speed with added force would be below limit
+
+        this.weight = weight;
         this.fx += math.cos(angle) * force * MissileManager.fps;
         this.fy += math.sin(angle) * force * MissileManager.fps;
     }
@@ -55,8 +88,8 @@ export class Knockback implements IMissile {
         // kb.fy = sy * (ry > 0 ? ry : 0);
         //#endregion
 
-        kb.fx *= this.scaleDecay;
-        kb.fy *= this.scaleDecay;
+        kb.fx *= this.scaleDecay * kb.weight;
+        kb.fy *= this.scaleDecay * kb.weight;
     }
     
     Update() {

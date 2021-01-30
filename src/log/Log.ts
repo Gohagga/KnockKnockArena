@@ -8,8 +8,8 @@ export enum Level {
 
 export class Log {
 
-    public static Level = Level.All;
-    // public static Level = Level.Error;
+    // public static Level = Level.All;
+    public static Level = Level.Error;
 
     public static info(...msg: any[]) {
         if (Number(this.Level) > Number(Level.Info)) return;

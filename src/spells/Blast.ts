@@ -8,6 +8,7 @@ import { MissileManager } from "missile-system/MissileManager";
 import { KnockbackManager } from "missiles/KnockbackManager";
 import { BlastMissile } from "missiles/BlastMissile";
 import { Effect, Point } from "w3ts/index";
+import { Trap } from "./Trap";
 
 export class Blast extends Ability {
 
@@ -47,6 +48,7 @@ export class Blast extends Ability {
 
                 const targets = this.enumService.EnumUnitsInRange(new Point(m.x, m.y), 70, target =>
                     (m.travelled < 100 && target == caster) == false &&
+                    target.typeId != Trap.trapUnitId &&
                     target.isAlive());
                     
                 if (targets.length > 0) {

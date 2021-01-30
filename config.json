@@ -1,7 +1,8 @@
 {
-  "mapFolder": "map.w3x",
+  "mapFolder": "KnockKnockArena.w3x",
   "minifyScript": false,
   "gameExecutable": "C:\\Program Files (x86)\\Warcraft III\\_retail_\\x86_64\\Warcraft III.exe",
+  "archiveOutputFolder": "C:\\Users\\Bartul\\Documents\\Warcraft III\\Maps\\TestPC 2",
   "outputFolder": "./dist/bin",
   "launchArgs": [
     "-launch",

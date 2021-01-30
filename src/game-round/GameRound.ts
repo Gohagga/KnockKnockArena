@@ -92,7 +92,7 @@ export class GameRound {
     }
 
     CreateHeroForPlayer(player: MapPlayer, x: number, y: number) {
-        this.hero[player.id] =  new Unit(player, FourCC('hrif'), x, y, 0);
+        this.hero[player.id] =  new Unit(player, FourCC('h003'), x, y, 0);
     }
 
     ResetFlagPositions() {

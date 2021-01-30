@@ -18,6 +18,13 @@ function main() {
   }
 
   createMapFromDir(`${config.outputFolder}/${config.mapFolder}`, `./dist/${config.mapFolder}`);
+
+  logger.info(`Saving to output folder...`);
+  if (!fs.existsSync(config.archiveOutputFolder)) {
+    fs.mkdirSync(config.archiveOutputFolder);
+  }
+
+  createMapFromDir(`${config.archiveOutputFolder}/${config.mapFolder}`, `./dist/${config.mapFolder}`);
 }
 
 /**

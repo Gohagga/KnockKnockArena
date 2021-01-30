@@ -9,6 +9,10 @@ export class KnockbackManager {
 
     private instances: Record<number, Knockback> = {};
 
+    private classWeights: Record<number, number> = {
+        [FourCC('h004')]: 0.92
+    }
+
     constructor(
         private missileManager: MissileManager,
         private dummyService: DummyService,
@@ -17,11 +21,35 @@ export class KnockbackManager {
         
     }
 
-    ApplyKnockback(caster: Unit, u: Unit, force: number, angle: number) {
+    SetWeight(u: Unit, weight?: number) {
+
+        let id = u.id;
+        // Check if unit is already affected by a knockback, if so - add the force to it
+        if (id in this.instances && this.instances[id].alive) {
+
+            const existing = this.instances[id];
+            
+            if (!weight) {
+                if (u.id in this.classWeights) weight = this.classWeights[u.typeId];
+                else weight = 1;
+            }
+
+            // Apply the new force
+            existing.AddForce(0, 0, weight);
+
+        }
+    }
+
+    ApplyKnockback(caster: Unit, u: Unit, force: number, angle: number, speedLimit?: number) {
         
         // Skip traps
         if (u.typeId == FourCC('n000')) return;
         const id = u.id;
+
+        let weight = 1;
+        if (u.typeId in this.classWeights) {
+            weight = this.classWeights[u.typeId];
+        }
         
         Log.info(5.1)
 
@@ -32,13 +60,13 @@ export class KnockbackManager {
 
             const existing = this.instances[id];
             // Apply the new force
-            existing.AddForce(force, angle);
+            existing.AddForce(force, angle, weight, speedLimit);
 
         } else {
 
             Log.info(5.121, force, angle)
 
-            const newInstance = new Knockback(u, force, angle);
+            const newInstance = new Knockback(u, force, angle, weight, speedLimit);
             Log.info(5.122, force, angle)
             this.instances[id] = newInstance;
             Log.info(5.123, force, angle)
@@ -51,7 +79,25 @@ export class KnockbackManager {
         dummy.y = u.y;
         dummy.issueTargetOrder('cripple', u);
 
-        if (caster.isEnemy(u.owner))
+        if (caster.isEnemy(u.owner) && caster.getAbilityLevel(FourCC('B000')) == 0)
             this.gameRound.ReturnFlag(u);
+    }
+
+    RedirectForce(u: Unit, angle: number) {
+        
+        const id = u.id;
+
+        // Check if unit is already affected by a knockback, if so - add the force to it
+        if (id in this.instances && this.instances[id].alive) {
+
+            const existing = this.instances[id];
+            // Apply the new force
+            // existing.AddForce(force, angle, weight);
+            let speed = existing.speedPerFrame;
+
+            existing.fx = math.cos(angle) * speed;
+            existing.fy = math.sin(angle) * speed;
+
+        }
     }
 }

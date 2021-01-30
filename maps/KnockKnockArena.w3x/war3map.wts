@@ -10,7 +10,10 @@ Yes?
 
 STRING 3
 {
-Nondescript
+Capture the flag game based on different kinds of knockback projectiles.
+
+Wall bouncing, dashing, traps
+... and more
 }
 
 STRING 4
@@ -231,19 +234,19 @@ Heavy combatant who can shoot over walls and other obstacles. His missile knocks
 }
 
 STRING 47
-// Items: I00r (Rifleman), Tip (Tooltip - Basic)
+// Units: h002 (Sniper), Name (Name)
 {
 Sniper
 }
 
 STRING 48
-// Items: I00a (Artillery), Name (Name)
+// Units: h004 (Artillery), Name (Name)
 {
 Artillery
 }
 
 STRING 49
-// Items: I00a (Artillery), Tip (Tooltip - Basic)
+// Units: h004 (Artillery), Tip (Tooltip - Basic)
 {
 Artillery
 }
@@ -372,5 +375,149 @@ STRING 74
 // Abilities: A008 (Permanent Immolation smol), Name (Name)
 {
 Permanent Immolation smol
+}
+
+STRING 75
+// Abilities: A009 (Reposition), Name (Name)
+{
+Reposition
+}
+
+STRING 76
+// Abilities: A009 (Reposition), Tip (Tooltip - Normal)
+{
+Reposition
+}
+
+STRING 77
+// Abilities: A009 (Reposition), Ubertip (Tooltip - Normal - Extended)
+{
+Stealth and move 30% faster for 3 seconds.
+}
+
+STRING 78
+// Abilities: A00A (Dash), Name (Name)
+{
+Dash
+}
+
+STRING 79
+// Abilities: A00A (Dash), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 80
+// Abilities: A00A (Dash), Tip (Tooltip - Normal)
+{
+Dash
+}
+
+STRING 81
+// Abilities: A00A (Dash), Ubertip (Tooltip - Normal - Extended)
+{
+Dashes towards certain direction with great momentum.
+}
+
+STRING 82
+// Abilities: A00B (Steadfast), Name (Name)
+{
+Steadfast
+}
+
+STRING 83
+// Abilities: A00B (Steadfast), Tip (Tooltip - Normal)
+{
+Steadfast
+}
+
+STRING 84
+// Abilities: A00B (Steadfast), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 85
+// Abilities: A00B (Steadfast), Ubertip (Tooltip - Normal - Extended)
+{
+Gain 30% movement speed and 50% less damage taken for 5 seconds. While it lasts, enemy bullets will not cause you to drop a flag.
+}
+
+STRING 86
+// Units: h002 (Sniper), Tip (Tooltip - Basic)
+{
+Sniper
+}
+
+STRING 87
+// Units: h002 (Sniper), Ubertip (Tooltip - Extended)
+{
+Prefers distance. Can shoot a projectile that bounces off walls and gains in power the longer it travels.
+}
+
+STRING 88
+// Units: h003 (Blaster), Name (Name)
+{
+Blaster
+}
+
+STRING 89
+// Units: h003 (Blaster), Tip (Tooltip - Basic)
+{
+Blaster
+}
+
+STRING 90
+// Units: h004 (Artillery), Ubertip (Tooltip - Extended)
+{
+Heavy combatant who can shoot over walls and other obstacles. His missile knocks all units within aoe.
+}
+
+STRING 91
+// Units: n001 (Trapper), Name (Name)
+{
+Trapper
+}
+
+STRING 92
+// Units: n001 (Trapper), Tip (Tooltip - Basic)
+{
+Trapper
+}
+
+STRING 93
+// Units: n001 (Trapper), Ubertip (Tooltip - Extended)
+{
+Places invisible land mines around the battlefield. These explode when stepped on by enemy, and knock all nearby units towards direction it's facing.
+}
+
+STRING 94
+// Items: I00r (Rifleman), Tip (Tooltip - Basic)
+{
+Sniper
+}
+
+STRING 95
+// Items: I00a (Artillery), Name (Name)
+{
+Artillery
+}
+
+STRING 96
+// Items: I00a (Artillery), Tip (Tooltip - Basic)
+{
+Artillery
+}
+
+STRING 97
+// Buffs/Effects: B000 (Steadfast), EditorName (Name (Editor Only))
+{
+Steadfast
+}
+
+STRING 98
+// Abilities: A00C (Trap Slow), Name (Name)
+{
+Trap Slow
 }
 

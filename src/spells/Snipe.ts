@@ -8,6 +8,7 @@ import { MissileManager } from "missile-system/MissileManager";
 import { KnockbackManager } from "missiles/KnockbackManager";
 import { SnipeMissile } from "missiles/SnipeMissile";
 import { Point } from "w3ts/index";
+import { Trap } from "./Trap";
 
 export class Snipe extends Ability {
 
@@ -46,6 +47,7 @@ export class Snipe extends Ability {
 
                 const targets = this.enumService.EnumUnitsInRange(new Point(m.x, m.y), 60, target =>
                     (m.travelled < 100 && target == caster) == false &&
+                    target.typeId != Trap.trapUnitId &&
                     target.isAlive());
                     
                 if (targets.length > 0) {

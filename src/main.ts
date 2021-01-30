@@ -9,6 +9,7 @@ import { MissileManager } from "missile-system/MissileManager";
 import { Knockback } from "missiles/Knockback";
 import { KnockbackManager } from "missiles/KnockbackManager";
 import { Blast } from "spells/Blast";
+import { Dash } from "spells/Dash";
 import { Launch } from "spells/Launch";
 import { Snipe } from "spells/Snipe";
 import { Trap } from "spells/Trap";
@@ -88,9 +89,21 @@ function tsMain() {
     new Trap(
       'A007',
       'A006',
+      'A00C',
     {
       codeId: 'Amnx',
       name: 'Trap'
+    },
+      abilityEvent,
+      enumService,
+      missileManager,
+      knockbackManager,
+      dummyService
+    );
+
+    new Dash({
+        codeId: 'A00A',
+        name: 'Dash'
     },
       abilityEvent,
       enumService,

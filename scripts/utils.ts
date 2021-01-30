@@ -10,6 +10,7 @@ export interface IProjectConfig {
   minifyScript: string;
   gameExecutable: string;
   outputFolder: string;
+  archiveOutputFolder: string;
   launchArgs: string[];
   winePath?: string;
   winePrefix?: string;

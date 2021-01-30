@@ -3,6 +3,7 @@ gg_trg_Untitled_Trigger_001 = nil
 gg_trg_Untitled_Trigger_002 = nil
 gg_unit_ncop_0013 = nil
 gg_unit_ncop_0014 = nil
+gg_trg_Untitled_Trigger_003 = nil
 function InitGlobals()
 end
 
@@ -23,10 +24,10 @@ function CreateUnitsForPlayer0()
     local life
     u = BlzCreateUnitWithSkin(p, FourCC("h001"), 1725.8, -390.8, 90.769, FourCC("h001"))
     u = BlzCreateUnitWithSkin(p, FourCC("h001"), 1215.1, 2174.9, 268.517, FourCC("h001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 2451.8, 404.3, 90.769, FourCC("h001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 507.0, 1407.3, 90.769, FourCC("h001"))
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 2614.6, 1658.7, 180.477, FourCC("h000"))
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 334.4, 114.9, 0.970, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 426.5, 1413.4, 291.531, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 2525.0, 407.6, 17.568, FourCC("h000"))
 end
 
 function CreateBuildingsForPlayer1()
@@ -44,7 +45,7 @@ function CreateBuildingsForPlayer22()
     local unitID
     local t
     local life
-    u = BlzCreateUnitWithSkin(p, FourCC("e000"), 273.8, -276.4, 254.230, FourCC("e000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e000"), 256.0, -256.0, 270.000, FourCC("e000"))
     SetUnitColor(u, ConvertPlayerColor(0))
 end
 
@@ -54,7 +55,7 @@ function CreateBuildingsForPlayer23()
     local unitID
     local t
     local life
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 2671.2, 2408.0, 270.000, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 2688.0, 2432.0, 270.000, FourCC("e001"))
     SetUnitColor(u, ConvertPlayerColor(1))
 end
 
@@ -98,9 +99,30 @@ function InitTrig_Untitled_Trigger_002()
     TriggerAddAction(gg_trg_Untitled_Trigger_002, Trig_Untitled_Trigger_002_Actions)
 end
 
+function Trig_Untitled_Trigger_003_Func001C()
+    return false
+end
+
+function Trig_Untitled_Trigger_003_Conditions()
+    if (not Trig_Untitled_Trigger_003_Func001C()) then
+        return false
+    end
+    return true
+end
+
+function Trig_Untitled_Trigger_003_Actions()
+end
+
+function InitTrig_Untitled_Trigger_003()
+    gg_trg_Untitled_Trigger_003 = CreateTrigger()
+    TriggerAddCondition(gg_trg_Untitled_Trigger_003, Condition(Trig_Untitled_Trigger_003_Conditions))
+    TriggerAddAction(gg_trg_Untitled_Trigger_003, Trig_Untitled_Trigger_003_Actions)
+end
+
 function InitCustomTriggers()
     InitTrig_Untitled_Trigger_001()
     InitTrig_Untitled_Trigger_002()
+    InitTrig_Untitled_Trigger_003()
 end
 
 function InitCustomPlayerSlots()

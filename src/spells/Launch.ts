@@ -12,7 +12,7 @@ import { Effect, Point } from "w3ts/index";
 
 export class Launch extends Ability {
 
-    static readonly speed: number = 550;
+    static readonly speed: number = 650;
     // static readonly travelDistance: number = 1500;
     static readonly knockForce: number = 1600;
     static readonly aoe = 250;
