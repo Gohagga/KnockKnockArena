@@ -1,3 +1,4 @@
+import { Abilities, UnitType } from "config/ObjectEditorId";
 import { DummyService } from "dummy/DummyService";
 import { GameRound } from "game-round/GameRound";
 import { Log } from "log/Log";
@@ -11,7 +12,7 @@ export class KnockbackManager {
 
     private knockableId: number;
     private classWeights: Record<number, number> = {
-        [FourCC('h004')]: 0.95
+        [FourCC(UnitType.Artillery)]: 0.95
     }
 
     constructor(
@@ -45,7 +46,6 @@ export class KnockbackManager {
     ApplyKnockback(caster: Unit, u: Unit, force: number, angle: number, speedLimit?: number) {
         
         // Skip unknockable
-        // if (u.typeId == FourCC('n000') || u.typeId == FourCC('e001') || u.typeId == FourCC('e000')) return;
         if (u.getAbilityLevel(this.knockableId) == 0) return;
         const id = u.id;
 
@@ -74,7 +74,7 @@ export class KnockbackManager {
             this.missileManager.Fire(newInstance);
         }
 
-        const dummy = this.dummyService.GetDummy(FourCC('A001'), 1);
+        const dummy = this.dummyService.GetDummy(FourCC(Abilities.KnockbackSlow), 1);
         dummy.x = u.x;
         dummy.y = u.y;
         dummy.issueTargetOrder('cripple', u);

@@ -13,7 +13,7 @@ import { Trap } from "./Trap";
 export class Snipe extends Ability {
 
     static readonly speed: number = 800;
-    static readonly travelDistance: number = 1600;
+    static readonly travelDistance: number = 2200;
     static readonly knockForce: number = 1000;
 
     constructor(

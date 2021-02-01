@@ -1,6 +1,7 @@
 import { AbilityEventHandler } from "ability-event/AbilityEventHandler";
 import { AbilityEventProvider } from "ability-event/AbilityEventProvider";
 import { Order } from "config/Order";
+import { Abilities, UnitType } from "config/ObjectEditorId";
 import { DummyService } from "dummy/DummyService";
 import { EnumUnitService } from "enum-service/EnumUnitService";
 import { PathingService } from "enum-service/PathingService";
@@ -53,14 +54,14 @@ function tsMain() {
         const abilityEventProvider = new AbilityEventProvider(abilityEvent);
         const enumService = new EnumUnitService();
         const missileManager = new MissileManager();
-        const dummyService = new DummyService(MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE), FourCC('nDUM'));
-        const knockbackManager = new KnockbackManager('A00E', missileManager, dummyService, gameRound);
+        const dummyService = new DummyService(MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE), FourCC(UnitType.Dummy));
+        const knockbackManager = new KnockbackManager(Abilities.Knockable, missileManager, dummyService, gameRound);
         const pathingService = new PathingService();
 
         Log.info(4)
 
         new Snipe({
-            codeId: 'A000',
+            codeId: Abilities.Snipe,
             name: 'Snipe',
         },
             abilityEvent,
@@ -72,7 +73,7 @@ function tsMain() {
         Log.info(5)
 
         new Launch({
-            codeId: 'A002',
+            codeId: Abilities.Launch,
             name: 'Launch',
         },
             abilityEvent,
@@ -82,7 +83,7 @@ function tsMain() {
         );
 
         new Blast({
-            codeId: 'A005',
+            codeId: Abilities.Blast,
             name: 'Blast',
         },
             abilityEvent,
@@ -92,9 +93,9 @@ function tsMain() {
         );
 
         new Trap(
-            'A007',
-            'A006',
-            'A00C',
+            Abilities.Trap,
+            Abilities.Explode,
+            Abilities.TrapSlow,
             'B002',
             {
                 codeId: 'Amnx',

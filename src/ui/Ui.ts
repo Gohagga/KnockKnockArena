@@ -19,6 +19,8 @@ export function SetupUI() {
     visibleParent.visible = true;
     consoleUi.getChild(5).visible = false;
     bottomUi.visible = true;
+
+    heroBar.visible = true;
     
     let panel = bottomUi.getChild(0);
     panel.setParent(hiddenParent);

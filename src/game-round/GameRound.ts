@@ -1,4 +1,5 @@
 import { Order } from "config/Order";
+import { UnitType } from "config/ObjectEditorId";
 import { Log } from "log/Log";
 import { OrderId } from "w3ts/globals/order";
 import { Item, Leaderboard, MapPlayer, Multiboard, Timer, Trigger, Unit } from "w3ts/index";
@@ -77,6 +78,7 @@ export class GameRound {
             // Check distance
             let { x, y } = oldUnit;
             if (!oldUnit || oldUnit.isAlive() == false) {
+                if (this.hero[playerId]) RemoveUnit(this.hero[playerId].handle);
                 this.hero[playerId] = soldUnit;
             } else if ((shop.x - x)*(shop.x-x)+(shop.y-y)*(shop.y-y) >= 500*500) {
                 print("Cannot switch class, must be nearby.");
@@ -118,10 +120,19 @@ export class GameRound {
                 // u.issueImmediateOrder(OrderId.Stop);
             }
         });
+
+        // trg = new Trigger();
+        // trg.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
+        // trg.addAction(() => {
+        //     let u = Unit.fromEvent();
+        //     if (u == this.hero[MapPlayer.fromEvent().id]) {
+                
+        //     }
+        // });
     }
 
     CreateHeroForPlayer(player: MapPlayer, x: number, y: number) {
-        this.hero[player.id] =  new Unit(player, FourCC('h003'), x, y, 0);
+        this.hero[player.id] =  new Unit(player, FourCC(UnitType.Blaster), x, y, 0);
     }
 
     ResetFlagPositions() {

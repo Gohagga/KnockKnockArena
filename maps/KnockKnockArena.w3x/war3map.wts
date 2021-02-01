@@ -118,7 +118,7 @@ Launch
 }
 
 STRING 25
-// Abilities: A000 (Shoot), Hotkey (Hotkey - Normal)
+// Units: H005 (Blaster), Hotkey (Hotkey)
 {
 Q
 }
@@ -260,7 +260,7 @@ Blast
 }
 
 STRING 53
-// Abilities: A002 (Launch), Hotkey (Hotkey - Normal)
+// Abilities: A000 (Shoot), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -284,7 +284,7 @@ Trap
 }
 
 STRING 59
-// Abilities: A005 (Blast), Hotkey (Hotkey - Normal)
+// Abilities: A002 (Launch), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -320,7 +320,7 @@ Explode the trap manually.
 }
 
 STRING 67
-// Abilities: A006 (Explode), Hotkey (Hotkey - Normal)
+// Abilities: A005 (Blast), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -416,7 +416,7 @@ Steadfast
 }
 
 STRING 84
-// Abilities: A00A (Dash), Hotkey (Hotkey - Normal)
+// Units: H006 (Sniper), Hotkey (Hotkey)
 {
 W
 }
@@ -470,19 +470,19 @@ Places invisible land mines around the battlefield. These explode when stepped o
 }
 
 STRING 94
-// Items: I00r (Rifleman), Tip (Tooltip - Basic)
+// Units: H006 (Sniper), Name (Name)
 {
 Sniper
 }
 
 STRING 95
-// Items: I00a (Artillery), Name (Name)
+// Units: H007 (Artillery), Name (Name)
 {
 Artillery
 }
 
 STRING 96
-// Items: I00a (Artillery), Tip (Tooltip - Basic)
+// Units: H007 (Artillery), Tip (Tooltip - Basic)
 {
 Artillery
 }
@@ -536,13 +536,13 @@ R
 }
 
 STRING 107
-// Abilities: A007 (Trap), Hotkey (Hotkey - Normal)
+// Abilities: A006 (Explode), Hotkey (Hotkey - Normal)
 {
 Q
 }
 
 STRING 108
-// Abilities: A00B (Steadfast), Hotkey (Hotkey - Normal)
+// Abilities: A00A (Dash), Hotkey (Hotkey - Normal)
 {
 W
 }
@@ -646,5 +646,101 @@ Steadfast
 STRING 126
 {
 Hero Selector
+}
+
+STRING 127
+// Units: H005 (Blaster), Name (Name)
+{
+Blaster
+}
+
+STRING 128
+// Units: H005 (Blaster), Tip (Tooltip - Basic)
+{
+Blaster
+}
+
+STRING 129
+// Units: H005 (Blaster), Ubertip (Tooltip - Extended)
+{
+Very mobile unit with a straightforward missile and Dash.
+}
+
+STRING 130
+// Units: H006 (Sniper), Tip (Tooltip - Basic)
+{
+Sniper
+}
+
+STRING 131
+// Units: H006 (Sniper), Ubertip (Tooltip - Extended)
+{
+Prefers distance. Can shoot a projectile that bounces off walls and gains in power the longer it travels.
+}
+
+STRING 132
+// Units: H007 (Artillery), Ubertip (Tooltip - Extended)
+{
+Heavy combatant who can shoot over walls and other obstacles. His missile knocks all units within aoe.
+}
+
+STRING 133
+// Units: H007 (Artillery), Hotkey (Hotkey)
+{
+E
+}
+
+STRING 134
+// Units: H008 (Trapper), Name (Name)
+{
+Trapper
+}
+
+STRING 135
+// Units: H008 (Trapper), Tip (Tooltip - Basic)
+{
+Trapper
+}
+
+STRING 136
+// Units: H008 (Trapper), Ubertip (Tooltip - Extended)
+{
+Places invisible land mines around the battlefield. These explode when stepped on by enemy, and knock all nearby units towards direction it's facing.
+}
+
+STRING 137
+// Units: H008 (Trapper), Hotkey (Hotkey)
+{
+R
+}
+
+STRING 138
+// Items: I00r (Rifleman), Tip (Tooltip - Basic)
+{
+Sniper
+}
+
+STRING 139
+// Items: I00a (Artillery), Name (Name)
+{
+Artillery
+}
+
+STRING 140
+// Items: I00a (Artillery), Tip (Tooltip - Basic)
+{
+Artillery
+}
+
+STRING 141
+// Abilities: A007 (Trap), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 142
+// Abilities: A00B (Steadfast), Hotkey (Hotkey - Normal)
+{
+W
 }
 

@@ -2,6 +2,7 @@ import { AbilityEvent } from "ability-event/AbilityEvent";
 import { IAbilityEventHandler } from "ability-event/IAbilityEventHandler";
 import { Ability } from "base/Ability";
 import { AbilityData } from "config/AbilityData";
+import { UnitType } from "config/ObjectEditorId";
 import { DummyService } from "dummy/DummyService";
 import { IEnumUnitService } from "enum-service/IEnumUnitService";
 import { Log } from "log/Log";
@@ -33,7 +34,7 @@ export class Trap extends Ability {
     static readonly delay: number = 3;
     static readonly checkInterval = 0.07;
 
-    static readonly trapUnitId = FourCC('n000');
+    static readonly trapUnitId = FourCC(UnitType.TrapMine);
 
     private instances: Record<number, TrapMine> = {};
 
