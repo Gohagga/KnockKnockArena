@@ -1,4 +1,6 @@
+import { Order } from "config/Order";
 import { Log } from "log/Log";
+import { OrderId } from "w3ts/globals/order";
 import { Item, Leaderboard, MapPlayer, Multiboard, Timer, Trigger, Unit } from "w3ts/index";
 
 export class GameRound {
@@ -89,6 +91,33 @@ export class GameRound {
             }
 
         });
+
+        let trg = new Trigger();
+        trg.registerAnyUnitEvent(EVENT_PLAYER_UNIT_PICKUP_ITEM);
+        trg.addAction(() => {
+
+            // if (GetIssuedOrderId() != Order.SMART) return;
+
+            let item = Item.fromEvent();
+            let u = Unit.fromEvent();
+            // let ix = item.x;
+            // let iy = item.y;
+            // let { x, y } = u;
+
+            // let pickupRange = 150;
+
+            // if ((x-ix)*(x-ix)+(y-iy)*(y-iy) > pickupRange * pickupRange) return;
+
+            if (item == this.flag.red && u.isAlly(MapPlayer.fromIndex(0))) {
+                this.ReturnFlag(item, u);
+                IssueImmediateOrderById(u.handle, OrderId.Stop);
+                // u.issueImmediateOrder(Order.STOP);
+            } else if (item == this.flag.blue && u.isAlly(MapPlayer.fromIndex(6))) {
+                this.ReturnFlag(item, u);
+                IssueImmediateOrderById(u.handle, OrderId.Stop);
+                // u.issueImmediateOrder(OrderId.Stop);
+            }
+        });
     }
 
     CreateHeroForPlayer(player: MapPlayer, x: number, y: number) {
@@ -116,17 +145,34 @@ export class GameRound {
         });
     }
 
-    ReturnFlag(u: Unit) {
+    DropFlag(u: Unit) {
 
         // Remove the flag item from the carrier
         if (u.hasItem(this.flag.blue)) {
-            let { x, y } = this.circles.blue;
             u.removeItem(this.flag.blue);
-            this.flag.blue.setPosition(x, y);
+            // let { x, y } = this.circles.blue;
+            // u.removeItem(this.flag.blue);
+            // this.flag.blue.setPosition(x, y);
         }
         if (u.hasItem(this.flag.red)) {
-            let { x, y } = this.circles.red;
             u.removeItem(this.flag.red);
+            // let { x, y } = this.circles.red;
+            // u.removeItem(this.flag.red);
+            // this.flag.red.setPosition(x, y);
+        }
+    }
+
+    ReturnFlag(flag: Item, unit?: Unit) {
+
+        // Remove the flag item from the carrier
+        if (flag == this.flag.blue) {
+            let { x, y } = this.circles.blue;
+            if (unit) unit.removeItem(this.flag.blue);
+            this.flag.blue.setPosition(x, y);
+        }
+        if (flag == this.flag.red) {
+            let { x, y } = this.circles.red;
+            if (unit) unit.removeItem(this.flag.red);
             this.flag.red.setPosition(x, y);
         }
     }

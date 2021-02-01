@@ -1,9 +1,11 @@
 gg_rct_Region_000 = nil
+gg_rct_TeleportDestLeft = nil
+gg_rct_TeleportDestRight = nil
+gg_rct_RuneRight = nil
+gg_rct_RuneLeft = nil
 gg_trg_Untitled_Trigger_001 = nil
-gg_trg_Untitled_Trigger_002 = nil
 gg_unit_ncop_0013 = nil
 gg_unit_ncop_0014 = nil
-gg_trg_Untitled_Trigger_003 = nil
 function InitGlobals()
 end
 
@@ -45,7 +47,7 @@ function CreateBuildingsForPlayer22()
     local unitID
     local t
     local life
-    u = BlzCreateUnitWithSkin(p, FourCC("e000"), 256.0, -256.0, 270.000, FourCC("e000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e000"), 256.0, -640.0, 270.000, FourCC("e000"))
     SetUnitColor(u, ConvertPlayerColor(0))
 end
 
@@ -57,6 +59,20 @@ function CreateBuildingsForPlayer23()
     local life
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 2688.0, 2432.0, 270.000, FourCC("e001"))
     SetUnitColor(u, ConvertPlayerColor(1))
+end
+
+function CreateNeutralPassiveBuildings()
+    local p = Player(PLAYER_NEUTRAL_PASSIVE)
+    local u
+    local unitID
+    local t
+    local life
+    u = BlzCreateUnitWithSkin(p, FourCC("nwgt"), 2496.0, 768.0, 270.000, FourCC("nwgt"))
+    WaygateSetDestination(u, GetRectCenterX(gg_rct_TeleportDestRight), GetRectCenterY(gg_rct_TeleportDestRight))
+    WaygateActivate(u, true)
+    u = BlzCreateUnitWithSkin(p, FourCC("nwgt"), 448.0, 1024.0, 270.000, FourCC("nwgt"))
+    WaygateSetDestination(u, GetRectCenterX(gg_rct_TeleportDestLeft), GetRectCenterY(gg_rct_TeleportDestLeft))
+    WaygateActivate(u, true)
 end
 
 function CreatePlayerBuildings()
@@ -71,13 +87,18 @@ function CreatePlayerUnits()
 end
 
 function CreateAllUnits()
+    CreateNeutralPassiveBuildings()
     CreatePlayerBuildings()
     CreatePlayerUnits()
 end
 
 function CreateRegions()
     local we
-    gg_rct_Region_000 = Rect(256.0, -640.0, 2688.0, 2432.0)
+    gg_rct_Region_000 = Rect(0.0, -896.0, 2944.0, 2688.0)
+    gg_rct_TeleportDestLeft = Rect(2432.0, -544.0, 2592.0, -384.0)
+    gg_rct_TeleportDestRight = Rect(352.0, 2176.0, 512.0, 2336.0)
+    gg_rct_RuneRight = Rect(1824.0, 224.0, 1920.0, 320.0)
+    gg_rct_RuneLeft = Rect(1024.0, 1472.0, 1120.0, 1568.0)
 end
 
 function Trig_Untitled_Trigger_001_Actions()
@@ -90,39 +111,8 @@ function InitTrig_Untitled_Trigger_001()
     TriggerAddAction(gg_trg_Untitled_Trigger_001, Trig_Untitled_Trigger_001_Actions)
 end
 
-function Trig_Untitled_Trigger_002_Actions()
-end
-
-function InitTrig_Untitled_Trigger_002()
-    gg_trg_Untitled_Trigger_002 = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_Untitled_Trigger_002, EVENT_PLAYER_UNIT_SUMMON)
-    TriggerAddAction(gg_trg_Untitled_Trigger_002, Trig_Untitled_Trigger_002_Actions)
-end
-
-function Trig_Untitled_Trigger_003_Func001C()
-    return false
-end
-
-function Trig_Untitled_Trigger_003_Conditions()
-    if (not Trig_Untitled_Trigger_003_Func001C()) then
-        return false
-    end
-    return true
-end
-
-function Trig_Untitled_Trigger_003_Actions()
-end
-
-function InitTrig_Untitled_Trigger_003()
-    gg_trg_Untitled_Trigger_003 = CreateTrigger()
-    TriggerAddCondition(gg_trg_Untitled_Trigger_003, Condition(Trig_Untitled_Trigger_003_Conditions))
-    TriggerAddAction(gg_trg_Untitled_Trigger_003, Trig_Untitled_Trigger_003_Actions)
-end
-
 function InitCustomTriggers()
     InitTrig_Untitled_Trigger_001()
-    InitTrig_Untitled_Trigger_002()
-    InitTrig_Untitled_Trigger_003()
 end
 
 function InitCustomPlayerSlots()
@@ -624,8 +614,8 @@ function config()
     DefineStartLocation(9, 2304.0, 2176.0)
     DefineStartLocation(10, 2304.0, 2176.0)
     DefineStartLocation(11, 2304.0, 2176.0)
-    DefineStartLocation(12, -448.0, -3072.0)
-    DefineStartLocation(13, 2240.0, -1472.0)
+    DefineStartLocation(12, 576.0, -448.0)
+    DefineStartLocation(13, 2304.0, 2176.0)
     InitCustomPlayerSlots()
     InitCustomTeams()
     InitAllyPriorities()

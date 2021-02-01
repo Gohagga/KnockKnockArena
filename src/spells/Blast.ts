@@ -16,6 +16,7 @@ export class Blast extends Ability {
     static readonly travelDistance: number = 1200;
     static readonly knockForce: number = 1200;
     static readonly aoe: number = 160;
+    static readonly selfPushLimitSpeed: number = 1200;
 
     constructor(
         data: AbilityData,
@@ -73,7 +74,11 @@ export class Blast extends Ability {
                         let tx = t.x;
                         let ty = t.y;
                         let direction = math.atan(ty - m.y, tx - m.x);
-                        this.knockbackManager.ApplyKnockback(caster, t, Blast.knockForce, direction);
+                        
+                        if (t == caster)
+                            this.knockbackManager.ApplyKnockback(caster, t, Blast.knockForce, direction, Blast.selfPushLimitSpeed);
+                        else
+                            this.knockbackManager.ApplyKnockback(caster, t, Blast.knockForce, direction);
                     }
                 }
             });

@@ -59,8 +59,7 @@ export class ShellMissile implements IMissile {
         this.sfx.setYaw(this.angle);
         this.sfx.setPitch(pitch)
         this.sfx.setHeight(z);
-
-
+        
         if (this.travelled >= this.distance) {
             this.alive = false;
         }

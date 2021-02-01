@@ -1,0 +1,3 @@
+[CustomSkin]
+ConsoleInventoryCoverTexture=UI\Console\Human\HumanUITile-InventoryCover.dds
+

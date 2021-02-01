@@ -43,33 +43,46 @@ export class Knockback implements IMissile {
 
     AddForce(force: number, angle: number, weight: number, speedLimit?: number) {
         
-        // let dx = math.cos(angle) * force * MissileManager.fps;
-        // let dy = math.sin(angle) * force * MissileManager.fps;
-        // let fx = this.fx + dx;
-        // let fy = this.fy + dy;
+        let fx = this.fx + math.cos(angle) * force * MissileManager.fps;
+        let fy = this.fy + math.sin(angle) * force * MissileManager.fps;
         
-        // if (speedLimit) {
+        if (speedLimit) {
             
-        //     {
+            let factor = 1;
+            let currAngle = math.atan(fy, fx);
+            let potentialSpeed = fx / math.cos(angle);
+            let limitedSpeed = speedLimit * MissileManager.fps;
+            let currentSpeed = this.speedPerFrame;
+
+            if (potentialSpeed < limitedSpeed) {
+                // current potential limited
+                // potential current limited
+                // potential limited current
+                factor = 1;
+
+            } else if (potentialSpeed >= limitedSpeed && currentSpeed < limitedSpeed) {
+                // current limited potential
+                factor = limitedSpeed / potentialSpeed;
+
+            } else if (potentialSpeed > currentSpeed && currentSpeed >= limitedSpeed) {
+                // limited current potential
+                factor = currentSpeed / potentialSpeed;
                 
-        //         let currAngle = math.atan(fy, fx);
-        //         let potentialSpeed = this.fx / math.cos(angle);
+            } else if (currentSpeed >= potentialSpeed && potentialSpeed > limitedSpeed) {
+                // limited potential current
+                factor = 1;
+            }
 
-        //         // let potentialSpeedIncrease = speedLimit - 
-        //         let scaling = potentialSpeed / speedLimit;
-        //         if (potentialSpeed > speedLimit) {
-        //             dx = 
-        //         }
-        //     }
-        // }
+            // Log.info("p", potentialSpeed, "l", limitedSpeed, "c", currentSpeed);
+            // Log.info("factor", factor);
 
-        // Case 2 - speed is below limit but adding all of force would go over
-        // - set speed to limit
-        // Case 3 - speed with added force would be below limit
+            fx *= factor;
+            fy *= factor;
+        }
 
         this.weight = weight;
-        this.fx += math.cos(angle) * force * MissileManager.fps;
-        this.fy += math.sin(angle) * force * MissileManager.fps;
+        this.fx = fx;//math.cos(angle) * force * MissileManager.fps;
+        this.fy = fy;//math.sin(angle) * force * MissileManager.fps;
     }
 
     private static Decay(kb: Knockback) {

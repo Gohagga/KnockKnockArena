@@ -9,16 +9,18 @@ export class KnockbackManager {
 
     private instances: Record<number, Knockback> = {};
 
+    private knockableId: number;
     private classWeights: Record<number, number> = {
-        [FourCC('h004')]: 0.92
+        [FourCC('h004')]: 0.95
     }
 
     constructor(
+        knockablePassiveId: string,
         private missileManager: MissileManager,
         private dummyService: DummyService,
         private gameRound: GameRound
     ) {
-        
+        this.knockableId = FourCC(knockablePassiveId);
     }
 
     SetWeight(u: Unit, weight?: number) {
@@ -42,8 +44,9 @@ export class KnockbackManager {
 
     ApplyKnockback(caster: Unit, u: Unit, force: number, angle: number, speedLimit?: number) {
         
-        // Skip traps
-        if (u.typeId == FourCC('n000')) return;
+        // Skip unknockable
+        // if (u.typeId == FourCC('n000') || u.typeId == FourCC('e001') || u.typeId == FourCC('e000')) return;
+        if (u.getAbilityLevel(this.knockableId) == 0) return;
         const id = u.id;
 
         let weight = 1;
@@ -66,12 +69,9 @@ export class KnockbackManager {
 
             Log.info(5.121, force, angle)
 
-            const newInstance = new Knockback(u, force, angle, weight, speedLimit);
-            Log.info(5.122, force, angle)
+            const newInstance = new Knockback(u, force, angle, weight);//, speedLimit);
             this.instances[id] = newInstance;
-            Log.info(5.123, force, angle)
             this.missileManager.Fire(newInstance);
-            Log.info(5.124, force, angle)
         }
 
         const dummy = this.dummyService.GetDummy(FourCC('A001'), 1);
@@ -79,8 +79,8 @@ export class KnockbackManager {
         dummy.y = u.y;
         dummy.issueTargetOrder('cripple', u);
 
-        if (caster.isEnemy(u.owner) && caster.getAbilityLevel(FourCC('B000')) == 0)
-            this.gameRound.ReturnFlag(u);
+        if (caster.isEnemy(u.owner) && u.getAbilityLevel(FourCC('B000')) == 0)
+            this.gameRound.DropFlag(u);
     }
 
     RedirectForce(u: Unit, angle: number) {

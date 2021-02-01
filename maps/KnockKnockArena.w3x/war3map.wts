@@ -33,7 +33,7 @@ Shoot
 }
 
 STRING 8
-// Abilities: A000 (Shoot), Hotkey (Hotkey - Normal)
+// Units: h003 (Blaster), Hotkey (Hotkey)
 {
 Q
 }
@@ -118,7 +118,7 @@ Launch
 }
 
 STRING 25
-// Abilities: A002 (Launch), Hotkey (Hotkey - Normal)
+// Abilities: A000 (Shoot), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -179,16 +179,6 @@ STRING 35
 // Units: e001 (Hero Selector Blue), Name (Name)
 {
 Hero Selector Blue
-}
-
-STRING 36
-{
-Player 23
-}
-
-STRING 37
-{
-Player 24
 }
 
 STRING 38
@@ -270,7 +260,7 @@ Blast
 }
 
 STRING 53
-// Abilities: A005 (Blast), Hotkey (Hotkey - Normal)
+// Abilities: A002 (Launch), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -294,7 +284,7 @@ Trap
 }
 
 STRING 59
-// Abilities: A006 (Explode), Hotkey (Hotkey - Normal)
+// Abilities: A005 (Blast), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -330,7 +320,7 @@ Explode the trap manually.
 }
 
 STRING 67
-// Abilities: A007 (Trap), Hotkey (Hotkey - Normal)
+// Abilities: A006 (Explode), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -351,12 +341,6 @@ STRING 70
 // Units: nban (Trapper), Ubertip (Tooltip - Extended)
 {
 Places invisible land mines around the battlefield. These explode when stepped on by enemy, and knock all nearby units towards direction it's facing.
-}
-
-STRING 71
-// Abilities: A007 (Trap), Ubertip (Tooltip - Normal - Extended)
-{
-Places a trap facing the caster that will trigger upon enemy walking over it. The trap knocks back everyone within its small radius towards facing of the trap.
 }
 
 STRING 72
@@ -402,7 +386,7 @@ Dash
 }
 
 STRING 79
-// Abilities: A00A (Dash), Hotkey (Hotkey - Normal)
+// Units: h002 (Sniper), Hotkey (Hotkey)
 {
 W
 }
@@ -432,15 +416,9 @@ Steadfast
 }
 
 STRING 84
-// Abilities: A00B (Steadfast), Hotkey (Hotkey - Normal)
+// Abilities: A00A (Dash), Hotkey (Hotkey - Normal)
 {
 W
-}
-
-STRING 85
-// Abilities: A00B (Steadfast), Ubertip (Tooltip - Normal - Extended)
-{
-Gain 30% movement speed and 50% less damage taken for 5 seconds. While it lasts, enemy bullets will not cause you to drop a flag.
 }
 
 STRING 86
@@ -519,5 +497,154 @@ STRING 98
 // Abilities: A00C (Trap Slow), Name (Name)
 {
 Trap Slow
+}
+
+STRING 99
+// Abilities: A00D (Ally Trap Trigger), Name (Name)
+{
+Ally Trap Trigger
+}
+
+STRING 100
+// Buffs/Effects: B002 (Ally Trigger Traps), EditorName (Name (Editor Only))
+{
+Ally Trigger Traps
+}
+
+STRING 101
+// Buffs/Effects: B002 (Ally Trigger Traps), Bufftip (Tooltip)
+{
+Ally Trigger Traps
+}
+
+STRING 102
+// Buffs/Effects: B002 (Ally Trigger Traps), Buffubertip (Tooltip - Extended)
+{
+Allies will trigger your traps.
+}
+
+STRING 105
+// Units: h004 (Artillery), Hotkey (Hotkey)
+{
+E
+}
+
+STRING 106
+// Units: n001 (Trapper), Hotkey (Hotkey)
+{
+R
+}
+
+STRING 107
+// Abilities: A007 (Trap), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 108
+// Abilities: A00B (Steadfast), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 109
+// Abilities: A00D (Ally Trap Trigger), Tip (Tooltip - Normal)
+{
+Turn On Allies Trigger Traps
+}
+
+STRING 110
+// Abilities: A00D (Ally Trap Trigger), Untip (Tooltip - Turn Off)
+{
+Turn Off Allies Trigger Traps
+}
+
+STRING 111
+// Abilities: A00D (Ally Trap Trigger), Hotkey (Hotkey - Normal)
+{
+D
+}
+
+STRING 112
+// Abilities: A00D (Ally Trap Trigger), Unhotkey (Hotkey - Turn Off)
+{
+D
+}
+
+STRING 113
+// Units: h003 (Blaster), Ubertip (Tooltip - Extended)
+{
+Very mobile unit with a straightforward missile and Dash.
+}
+
+STRING 114
+// Abilities: A007 (Trap), Ubertip (Tooltip - Normal - Extended)
+{
+Places a trap facing the caster that will trigger upon enemy walking over it. The trap knocks back everyone within its small radius towards facing of the trap.|n|nTrap can also trigger on allies if toggled.
+}
+
+STRING 115
+// Abilities: A00D (Ally Trap Trigger), Ubertip (Tooltip - Normal - Extended)
+{
+Makes all traps trigger when ally walks over it.
+}
+
+STRING 116
+// Abilities: A00D (Ally Trap Trigger), Unubertip (Tooltip - Turn Off - Extended)
+{
+Make traps only triggerable by enemy.
+}
+
+STRING 117
+// Abilities: A00B (Steadfast), Ubertip (Tooltip - Normal - Extended)
+{
+Gain 30% movement speed for 5 seconds. While it lasts, enemy bullets will not cause you to drop a flag.
+}
+
+STRING 118
+// Abilities: A00E (Knockable), Name (Name)
+{
+Knockable
+}
+
+STRING 119
+// Items: I001 (Rune of Essence), Name (Name)
+{
+Rune of Essence
+}
+
+STRING 120
+// Abilities: A00F (Powerup Essence), Name (Name)
+{
+Powerup Essence
+}
+
+STRING 121
+// Items: I001 (Rune of Essence), Tip (Tooltip - Basic)
+{
+Rune of Essence
+}
+
+STRING 122
+// Items: I001 (Rune of Essence), Ubertip (Tooltip - Extended)
+{
+Heals 100 hp/s and restores 200 mana per second for 30 seconds.
+}
+
+STRING 124
+// Items: I001 (Rune of Essence), Description (Description)
+{
+Heals 100 hp/s and restores 100 mana per second for 30 seconds.
+}
+
+STRING 125
+// Buffs/Effects: B000 (Steadfast), Bufftip (Tooltip)
+{
+Steadfast
+}
+
+STRING 126
+{
+Hero Selector
 }
 

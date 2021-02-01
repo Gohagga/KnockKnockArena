@@ -27,6 +27,7 @@ export class Trap extends Ability {
     static readonly speed: number = 800;
     static readonly travelDistance: number = 1600;
     static readonly knockForce: number = 1000;
+    static readonly maxSpeed: number = 1600;
     static readonly aoe: number = 120;
     static readonly triggerRange: number = 80;
     static readonly delay: number = 3;
@@ -36,10 +37,14 @@ export class Trap extends Ability {
 
     private instances: Record<number, TrapMine> = {};
 
+    private allyTriggerTrapId: number;
+
     constructor(
         spellId: string,
         explodeSpellId: string,
         private slowSpellId: string,
+        // private allyTrapTriggerSpellId: string,
+        private allyTriggerTrapBuffId: string,
         data: AbilityData,
         abilityEvent: IAbilityEventHandler,
         private enumService: IEnumUnitService,
@@ -48,6 +53,9 @@ export class Trap extends Ability {
         private dummyService: DummyService
     ) {
         super(data);
+
+        this.allyTriggerTrapId = FourCC(allyTriggerTrapBuffId);
+
         abilityEvent.OnAbilityEffect(FourCC(explodeSpellId), e => this.instances[e.caster.id].missile.alive = false);
         let t = new Trigger();
         t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON);
@@ -87,8 +95,13 @@ export class Trap extends Ability {
         Log.info("delay?", missile.delay);
         
         missile.OnUpdate((m) => {
+
+            // Handle repick or death
+            if (!(caster.handle && caster.isAlive())) m.alive = false;
+
             if (m.delay >= 0) {
                 m.delay -= MissileManager.fps;
+                // sfx.setAlpha(math.floor(m.delay / Trap.delay * 100 - 5));
             } else if (m.delay > -100) {
                 
                 if (caster.owner.isPlayerEnemy(MapPlayer.fromLocal())) {
@@ -98,12 +111,14 @@ export class Trap extends Ability {
 
             } else {
                 
-                Log.info("got in");
+                // Log.info("got in");
                 const targets = this.enumService.EnumUnitsInRange(trap.point, Trap.triggerRange, target =>
-                    target.isEnemy(owner) &&
+                    target.typeId != Trap.trapUnitId &&
+                    (target.isEnemy(owner) || caster.getAbilityLevel(this.allyTriggerTrapId) > 0) &&
                     target.isAlive());
                     
-                    if (targets.length > 0) {
+                if (targets.length > 0) {
+                    Log.info(targets[0].name);
                         // trap.kill();
                     m.alive = false;
                 }
@@ -152,10 +167,12 @@ export class Trap extends Ability {
                 let tx = t.x;
                 let ty = t.y;
                 this.knockbackManager.RedirectForce(t, angle);
-                this.knockbackManager.ApplyKnockback(caster, t, Trap.knockForce, angle);
+                this.knockbackManager.ApplyKnockback(caster, t, Trap.knockForce, angle, Trap.maxSpeed);
                 this.dummyService.GetDummy(FourCC(this.slowSpellId), 1)
             }
         }
+
+        delete this.instances[trap.id];
     }
 
     Execute(e: AbilityEvent) {
