@@ -16,7 +16,7 @@ import { Launch } from "spells/Launch";
 import { Snipe } from "spells/Snipe";
 import { Trap } from "spells/Trap";
 import { SetupUI } from "ui/Ui";
-import { Item, MapPlayer, Multiboard, Point, Region, Timer, Trigger, Unit } from "w3ts";
+import { Item, MapPlayer, Multiboard, Point, Quest, Region, Timer, Trigger, Unit } from "w3ts";
 import { Players } from "w3ts/globals";
 import { OrderId } from "w3ts/globals/order";
 import { addScriptHook, W3TS_HOOK } from "w3ts/hooks";
@@ -57,8 +57,6 @@ function tsMain() {
         const dummyService = new DummyService(MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE), FourCC(UnitType.Dummy));
         const knockbackManager = new KnockbackManager(Abilities.Knockable, missileManager, dummyService, gameRound);
         const pathingService = new PathingService();
-
-        Log.info(4)
 
         new Snipe({
             codeId: Abilities.Snipe,
@@ -143,42 +141,56 @@ function tsMain() {
                 players.push(p);
 
                 if (i < 6) {
-                    SetPlayerAlliance(redForcePlayer.handle, p.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true)
+                    // SetPlayerAlliance(redForcePlayer.handle, p.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true)
                     SetPlayerAlliance(redForcePlayer.handle, p.handle, ALLIANCE_SHARED_CONTROL, true)
                     SetPlayerAlliance(redForcePlayer.handle, p.handle, ALLIANCE_SHARED_VISION, true)
                 } else {
-                    SetPlayerAlliance(blueForcePlayer.handle, p.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true)
+                    // SetPlayerAlliance(blueForcePlayer.handle, p.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true)
                     SetPlayerAlliance(blueForcePlayer.handle, p.handle, ALLIANCE_SHARED_CONTROL, true)
                     SetPlayerAlliance(blueForcePlayer.handle, p.handle, ALLIANCE_SHARED_VISION, true)
                 }
 
-                const modifier = CreateFogModifierRect(p.handle, FOG_OF_WAR_VISIBLE, gg_rct_Region_000, false, true);
+                const modifier = CreateFogModifierRect(p.handle, FOG_OF_WAR_VISIBLE, gg_rct_3v3, false, true);
                 FogModifierStart(modifier);
 
                 cam.registerPlayerChatEvent(p, '-cam ', false);
                 cam.registerPlayerChatEvent(p, '-zoom ', false);
             }
         }
-        ClearTextMessages();
 
+        ClearTextMessages();
         let countdown = 5;
         const tim = new Timer();
+        new Timer().start(0.5, false, () => print("Red should type -goal ### to set winning condition."))
         tim.start(1, true, () => {
 
             print(`Game starts in ${countdown--}`);
             if (countdown == 0) {
                 tim.destroy();
 
-                for (let player of players) {
-
-                    let startX = player.startLocationX;
-                    let startY = player.startLocationY;
-
-                    gameRound.CreateHeroForPlayer(player, startX, startY);
+                for (let p of players) {
+                    let hero = gameRound.CreateHeroForPlayer(p);
+                    if (p.handle == GetLocalPlayer())
+                        SelectUnitSingle(hero.handle);
                 }
             }
         });
 
+        let q = new Quest();
+        q.setTitle("Commands");
+        q.setIcon("ReplaceableTextures\\CommandButtons\\BTNSelectHeroOn.blp");
+        q.setDescription(
+`-goal ####  Sets winning condition for amount of flag captures.
+-cam ####   Sets camera to distance ####.
+-zoom ####  Alt for camera distance`);
+        
+        q = new Quest();
+        q.setTitle("Credits");
+        q.setIcon("ReplaceableTextures\\CommandButtons\\BTNChestOfGold.blp");
+        q.setDescription(
+`Mayday - for help with UI
+Daratrix - for help with early testing`);
+            
         let rune: Item | null = null;
         let spawnRate = 120;
         let runeSpawn = [gg_rct_RuneLeft, gg_rct_RuneRight];
@@ -194,6 +206,23 @@ function tsMain() {
             index = math.fmod(index + 1, 2);
             rune = new Item(runeTypes[index], x, y);
         });
+
+        // Gateway transfer
+        let gatewayTransfer = () => {
+            let u = Unit.fromEvent();
+            if (u.owner.handle == GetLocalPlayer()) {
+                PanCameraToTimed(u.x, u.y, 0);
+            }
+        }
+
+        let trgGateway = new Trigger();
+        const leftRegion = CreateRegion();
+        RegionAddRect(leftRegion, gg_rct_TeleportDestLeft);
+        const rightRegion = CreateRegion();
+        RegionAddRect(rightRegion, gg_rct_TeleportDestRight);
+        trgGateway.registerEnterRegion(leftRegion, null);
+        trgGateway.registerEnterRegion(rightRegion, null);
+        trgGateway.addAction(gatewayTransfer);
 
         let runeTimerWindow = CreateTimerDialog(runeTimer.handle);
         TimerDialogSetTitle(runeTimerWindow, "Rune");

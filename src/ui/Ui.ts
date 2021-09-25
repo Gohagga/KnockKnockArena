@@ -85,7 +85,7 @@ export function SetupUI() {
     BlzFrameClearAllPoints(allyButton)
     BlzFrameClearAllPoints(chatButton)
     BlzFrameClearAllPoints(questButton)
-    BlzFrameSetAbsPoint(questButton, FRAMEPOINT_TOPLEFT, 0, 0.59)// 0.85, 0.6)
+    BlzFrameSetAbsPoint(questButton, FRAMEPOINT_TOPLEFT, 0.05, 0.59)// 0.85, 0.6)
     BlzFrameSetPoint(fh, FRAMEPOINT_TOP, questButton, FRAMEPOINT_BOTTOM, 0.0, 0.0)
     BlzFrameSetPoint(allyButton, FRAMEPOINT_TOP, fh, FRAMEPOINT_BOTTOM, 0.0, 0.0)
     BlzFrameSetPoint(chatButton, FRAMEPOINT_TOP, allyButton, FRAMEPOINT_BOTTOM, 0.0, 0.0)

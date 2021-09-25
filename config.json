@@ -7,6 +7,8 @@
   "launchArgs": [
     "-launch",
     "-windowmode",
-    "windowed"
+    "windowed",
+    "-hd",
+    "1"
   ]
 }

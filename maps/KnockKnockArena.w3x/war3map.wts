@@ -53,16 +53,6 @@ STRING 11
 Player 4
 }
 
-STRING 12
-{
-Player 5
-}
-
-STRING 13
-{
-Player 6
-}
-
 STRING 14
 {
 Player 7
@@ -81,16 +71,6 @@ Player 9
 STRING 17
 {
 Player 10
-}
-
-STRING 18
-{
-Player 11
-}
-
-STRING 19
-{
-Player 12
 }
 
 STRING 21
@@ -595,12 +575,6 @@ STRING 116
 Make traps only triggerable by enemy.
 }
 
-STRING 117
-// Abilities: A00B (Steadfast), Ubertip (Tooltip - Normal - Extended)
-{
-Gain 30% movement speed for 5 seconds. While it lasts, enemy bullets will not cause you to drop a flag.
-}
-
 STRING 118
 // Abilities: A00E (Knockable), Name (Name)
 {
@@ -742,5 +716,35 @@ STRING 142
 // Abilities: A00B (Steadfast), Hotkey (Hotkey - Normal)
 {
 W
+}
+
+STRING 143
+// Units: H005 (Blaster), Propernames (Proper Names)
+{
+Kyle
+}
+
+STRING 144
+// Units: H006 (Sniper), Propernames (Proper Names)
+{
+Jack
+}
+
+STRING 145
+// Units: H007 (Artillery), Propernames (Proper Names)
+{
+Arty
+}
+
+STRING 146
+// Units: H008 (Trapper), Propernames (Proper Names)
+{
+Viktor
+}
+
+STRING 147
+// Abilities: A00B (Steadfast), Ubertip (Tooltip - Normal - Extended)
+{
+Gain 30% movement speed for 3 seconds. While it lasts, enemy bullets will not cause you to drop a flag.
 }
 

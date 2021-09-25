@@ -10,6 +10,8 @@ export const enum UnitType {
     Dummy                   = 'nDUM',
     TrapMine                = 'n000',
 
+    Barrel                  = 'hmpr'
+
 }
 
 

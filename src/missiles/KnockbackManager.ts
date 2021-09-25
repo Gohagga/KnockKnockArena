@@ -12,7 +12,8 @@ export class KnockbackManager {
 
     private knockableId: number;
     private classWeights: Record<number, number> = {
-        [FourCC(UnitType.Artillery)]: 0.95
+        [FourCC(UnitType.Artillery)]: 0.95,
+        [FourCC(UnitType.Barrel)]: 0.935
     }
 
     constructor(
@@ -42,6 +43,19 @@ export class KnockbackManager {
 
         }
     }
+
+    IsBeingKnocked(u: Unit) {
+
+        const id = u.id;
+        return id in this.instances && this.instances[id].alive;
+    }
+
+    // GetKnockbackForce(u: Unit) {
+    //     let retVal = 0;
+    //     let id = u.id;
+    //     if (id in this.instances && this.instances[id].alive)
+    //         return this.instances[id].
+    // }
 
     ApplyKnockback(caster: Unit, u: Unit, force: number, angle: number, speedLimit?: number) {
         

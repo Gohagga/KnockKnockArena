@@ -9,6 +9,9 @@ export class GameRound {
     private flag: { red: Item, blue: Item };
     private circles: { red: Unit, blue: Unit }
     public hero: Record<number, Unit> = {};
+
+    public redTeam: Record<number, boolean> = { 0: true, 1: true, 2: true, 3: true };
+    public blueTeam: Record<number, boolean> = { 6: true, 7: true, 8: true, 9: true };
     
     constructor(
         score: Multiboard
@@ -36,6 +39,34 @@ export class GameRound {
         redItem.setValue(redScore.toString());
         blueItem.setValue(blueScore.toString());
 
+        let winGoal = 1;
+        const winCondition = new Trigger();
+        winCondition.registerPlayerChatEvent(MapPlayer.fromIndex(0), '-goal ', false);
+        winCondition.addAction(() => {
+            let msg = GetEventPlayerChatString();
+            const msgNumb = Number(msg.substr(6, 10));
+            if (typeof(msgNumb) == 'number') {
+                winGoal = msgNumb;
+                print("Win condition set to " + winGoal + " captures.");
+                winCondition.destroy();
+            }
+        });
+
+        let checkWinCondition = () => {
+            if (redScore >= winGoal) {
+                for (let p of Object.keys(this.redTeam)) {
+                    let pn = Number(p);
+                    CustomVictoryBJ(Player(pn), true, false);
+                    CustomDefeatBJ(Player(pn + 6), 'You have lost');
+                }
+            } else if (blueScore >= winGoal) {
+                for (let p of Object.keys(this.redTeam)) {
+                    let pn = Number(p);
+                    CustomVictoryBJ(Player(pn + 6), true, false);
+                    CustomDefeatBJ(Player(pn), 'You have lost');
+                }
+            }
+        };
 
         let redWin = new Trigger();
         redWin.registerUnitInRage(this.circles.red.handle, 70, null);
@@ -48,6 +79,7 @@ export class GameRound {
                 redScore++;
                 redItem.setValue(redScore.toString());
                 blueItem.setValue(blueScore.toString());
+                checkWinCondition();
             }
         });
 
@@ -62,6 +94,7 @@ export class GameRound {
                 blueScore++;
                 redItem.setValue(redScore.toString());
                 blueItem.setValue(blueScore.toString());
+                checkWinCondition();
             }
         });
 
@@ -129,10 +162,38 @@ export class GameRound {
                 
         //     }
         // });
+        for (let p of Object.keys(this.redTeam)) {
+            let pn = Number(p);
+            if (Player(pn) == GetLocalPlayer()) {
+                PanCameraToTimed(this.circles.red.x, this.circles.red.y, 0);
+            }
+        }
+        for (let p of Object.keys(this.blueTeam)) {
+            let pn = Number(p);
+            if (Player(pn) == GetLocalPlayer()) {
+                PanCameraToTimed(this.circles.blue.x, this.circles.blue.y, 0);
+            }
+        }
+
+        
     }
 
-    CreateHeroForPlayer(player: MapPlayer, x: number, y: number) {
-        this.hero[player.id] =  new Unit(player, FourCC(UnitType.Blaster), x, y, 0);
+    CreateHeroForPlayer(player: MapPlayer, x?: number, y?: number) {
+
+        if (!x || !y) {
+            if (player.id in this.redTeam) {
+                x = this.circles.red.x;
+                y = this.circles.red.y;
+            } else if (player.id in this.blueTeam) {
+                x = this.circles.blue.x;
+                y = this.circles.blue.y;
+            } else {
+                x = 0;
+                y = 0;
+            }
+        }
+        this.hero[player.id] = new Unit(player, FourCC(UnitType.Blaster), x, y, 0);
+        return this.hero[player.id];
     }
 
     ResetFlagPositions() {
